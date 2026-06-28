@@ -1,5 +1,7 @@
 pipeline{
-    agent slave
+    agent{
+		label 'slave'
+	}
 	environment{
 	IMAGE_NAME = 'bbc'
 	CONTAINER_NAME = 'news'	
