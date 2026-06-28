@@ -1,6 +1,6 @@
 pipeline{
     agent slave{
-        label 'docker'
+        label 'slave'
     }
 	environment{
 	IMAGE_NAME = 'bbc'
