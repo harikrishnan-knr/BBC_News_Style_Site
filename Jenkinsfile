@@ -3,8 +3,8 @@ pipeline{
 		label 'slave'
 	}
 	environment{
-	IMAGE_NAME = 'bbc'
-	CONTAINER_NAME = 'news'	
+	IMAGE_NAME = 'bbcsite'
+	CONTAINER_NAME = 'newsapp'	
                     }
 
 	stages{
