@@ -31,5 +31,22 @@ pipeline{
 	sh 'docker ps'
 	}
 }
+		stage('docker push'){
+			steps{
+				withCredentials([usernamePassword(
+                    credentialsId: 'Dockerhub',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+
+                    sh '''
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+					docker tag ${IMAGE_NAME}:latest "$DOCKER_USER"/${IMAGE_NAME}:V1
+                    docker push ${IMAGE_NAME}:V1
+                    docker logout
+                    '''
+                }
+            }
+}
 }
 }
