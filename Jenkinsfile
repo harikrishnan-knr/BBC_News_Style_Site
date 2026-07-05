@@ -9,7 +9,7 @@ pipeline{
 	stages{
 	stage('checkout'){
 		agent{
-		label 'docker'
+		label 'dock'
 	}
 	steps{
 	git branch: 'main', url: 'https://github.com/famidha2004/Nodejs-01.git'
@@ -18,7 +18,7 @@ pipeline{
     }
 	stage('build'){
 		agent{
-		label 'docker'
+		label 'dock'
 	}
 	steps{
 	sh 'docker build -t ${IMAGE_NAME}:latest .'
@@ -26,7 +26,7 @@ pipeline{
     }
 	stage('stop old containers'){
 		agent{
-		label 'docker'
+		label 'dock'
 	}
 	steps{
 	sh 'docker stop ${CONTAINER_NAME} || true'
@@ -35,7 +35,7 @@ pipeline{
 }
 	stage('docker image run'){
 		agent{
-		label 'docker'
+		label 'dock'
 	}
 	steps{
 	sh 'docker run -d --name ${CONTAINER_NAME} -p 80:80 ${IMAGE_NAME}:latest'
@@ -44,7 +44,7 @@ pipeline{
 }
 		stage('docker push'){
 			agent{
-		label 'docker'
+		label 'dock'
 	}
 			steps{
 				withCredentials([usernamePassword(
@@ -64,7 +64,7 @@ pipeline{
 }
 stage('checkout'){
 agent{
-	label 'kube'
+	label 'kuber'
 }
 	steps{
 	git branch: 'main', url: 'https://github.com/famidha2004/Nodejs-01.git'
@@ -74,7 +74,7 @@ agent{
 
 stage('checking the version of eksctl and kubernets'){
 	agent{
-		label 'kube'
+		label 'kuber'
 	}
 	steps{
 		sh '''eksctl version
@@ -83,7 +83,7 @@ stage('checking the version of eksctl and kubernets'){
 }
 stage('apply manifest'){
 	agent{
-		label 'kube'
+		label 'kuber'
 	}
 	steps{
 		sh '''kubectl delete -f ${POD_NAME) || true
@@ -92,7 +92,7 @@ stage('apply manifest'){
 }
 stage('checkout pods and service'){
 	agent{
-		label 'kube'}
+		label 'kuber'}
 		steps{
 			sh '''
 			kubectl get pods -o wide
