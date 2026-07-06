@@ -1,7 +1,7 @@
 pipeline{
     environment{
 	IMAGE_NAME = 'bbcsite'
-	CONTAINER_NAME = 'newsapp'
+	CONTAINER_NAME = 'bbccontainer'
 	POD_NAME = 'pod.yaml'
 	SERVICE_NAME = 'bbcnews-ns'
                     }
