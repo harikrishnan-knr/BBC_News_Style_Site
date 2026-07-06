@@ -101,17 +101,4 @@ stage('checkout pods and service'){
 			kubectl describe svc ${SERVICE_NAME}'''
 		}
 }
-post {
-        success {
-            mail to: 'famidhashamshath@gmail.com',
-                 subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Build succeeded: ${env.BUILD_URL}"
-        }
-
-        failure {
-            mail to: 'famidhashamshath@gmail.com',
-                 subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Build failed: ${env.BUILD_URL}"
-        }
-    } 
 }
