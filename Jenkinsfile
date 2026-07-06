@@ -3,7 +3,7 @@ pipeline{
 	IMAGE_NAME = 'bbcsite'
 	CONTAINER_NAME = 'newsapp'
 	POD_NAME = 'pod.yaml'
-	SERVICE_NAME = 'bbc-ns'
+	SERVICE_NAME = 'bbcnews-ns'
                     }
 
 	stages{
