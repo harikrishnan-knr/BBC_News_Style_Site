@@ -3,7 +3,7 @@ pipeline{
 	IMAGE_NAME = 'bbcsite'
 	CONTAINER_NAME = 'newsapp'
 	POD_NAME = 'pod.yaml'
-	SERVICE_NAME = ''
+	SERVICE_NAME = 'bbc-ns'
                     }
 
 	stages{
@@ -52,8 +52,7 @@ pipeline{
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-
-                    sh '''
+                sh '''
                     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 					docker tag ${IMAGE_NAME}:latest famidha/${IMAGE_NAME}:latest
                     docker push famidha/${IMAGE_NAME}:latest
@@ -78,7 +77,7 @@ stage('checking the version of eksctl and kubernets'){
 	}
 	steps{
 		sh '''eksctl version
-			kubectl version'''
+			kubectl version --client'''
 	}	
 }
 stage('apply manifest'){
@@ -86,8 +85,7 @@ stage('apply manifest'){
 		label 'kuber'
 	}
 	steps{
-		sh '''kubectl delete -f ${POD_NAME) || true
-		kubectl apply -f ${POD_NAME}'''
+		sh 'kubectl apply -f ${POD_NAME}'
 	}
 }
 stage('checkout pods and service'){
@@ -98,7 +96,8 @@ stage('checkout pods and service'){
 			kubectl get pods -o wide
 			kubectl get svc
 			kubectl get deployments
-			kubectl describe svc ${SERVICE_NAME}'''
+			kubectl describe namespaces ${SERVICE_NAME}'''
 		}
+}
 }
 }
