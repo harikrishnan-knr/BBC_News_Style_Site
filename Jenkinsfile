@@ -118,17 +118,4 @@ pipeline {
             }
         }
     }
-    post {
-        success {
-            mail to: 'sample@gmail.com',
-                 subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Build succeeded: ${env.BUILD_URL}"
-        }
-
-        failure {
-            mail to: 'sample@gmail.com',
-                 subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Build failed: ${env.BUILD_URL}"
-        }
-    }
 }
